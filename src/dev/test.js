@@ -1,7 +1,4 @@
 import { initSetting, text } from './initSetting.js';
-import markCSS from './markcss.js';
-import vs2015CSS from './vs2015css.js';
-import initJS from './initJS.js';
 window.addEventListener('load', e => {
     const body = document.querySelector('#control-bar');
     const input = document.createElement('input');

@@ -25,6 +25,7 @@ const initSetting = async (code, store, map, version = 1) => {
             par.classList.add('correct');
         }
     }
+    db.close();
     document.querySelectorAll('[data-id]').forEach(async v => {
         let div = document.createElement('div');
         let but = document.createElement('button');
@@ -40,22 +41,25 @@ const initSetting = async (code, store, map, version = 1) => {
                 alert('틀렸습니다 ㅠㅠ');
                 what = 'wrong';
             }
+            const db = await getDB('myDB', store, version);
             const start = code[v.dataset.id].parentElement;
             const objectStore = db.transaction([store], "readwrite").objectStore(store);
             const req = objectStore.get(v.dataset.id);
             let { target:{ result:{ correct, tryArr } } } = await promisify(req);
             tryArr.push(v.value);
-            // const objectStore = db.transaction([store], "readwrite").objectStore(store);
             if(what == 'correct'){
                 correct = 2;
             } else if(what == 'wrong' && correct < 2){
                 correct = 1;
             }
-            objectStore.put({num:v.dataset.id, correct, tryArr});
+            await promisify(objectStore.put({num:v.dataset.id, correct, tryArr}));
+            db.close();
             start.classList.add(what);
             v.value = '';
         };
         div.appendChild(but);
+        div.appendChild(document.createElement('br'));
+        div.appendChild(document.createElement('br'));
         v.insertAdjacentElement('afterend', div);
     });
 };
