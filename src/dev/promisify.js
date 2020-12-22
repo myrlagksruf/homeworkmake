@@ -1,4 +1,4 @@
-const promiseEvent = (elem, type="success", fun = e => e) => {
+const promisify = (elem, type="success", fun = e => e) => {
     let resolve, reject;
     const pro = new Promise((res, rej) => {
         resolve = res;
@@ -15,4 +15,4 @@ const promiseEvent = (elem, type="success", fun = e => e) => {
     });
     return pro;
 };
-export default promiseEvent;
+export default promisify;

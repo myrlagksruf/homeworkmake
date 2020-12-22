@@ -191,7 +191,6 @@ const text = async (txt, option = {dataType : true, ansType : true}) => {
             map.set(v.num, v.ans);
         }
     }
-    map.forEach(v => console.log(v));
     console.log(map);
     const raw = data.replace(reg, a => {
         const data = toJSON(a);
@@ -201,4 +200,4 @@ const text = async (txt, option = {dataType : true, ansType : true}) => {
     data = data.replace(reg, '');
     return { data, map, raw };
 };
-export { initSetting, text};
+export { initSetting, text };

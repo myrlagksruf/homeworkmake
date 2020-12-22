@@ -2,8 +2,7 @@ import { initSetting, text } from './initSetting.js';
 window.addEventListener('load', async () => {
     const { data, map }= await text(document.querySelector('.markdown-body').innerHTML, {dataType: false, ansType: false});
     document.querySelector('.markdown-body').innerHTML = data;
-    console.log(map);
-    let version = document.querySelector('h2').innerHTML.match(/\d+/)?.[0];
+    let version = document.querySelector('h2')?.innerHTML?.match(/\d+/)?.[0];
     if(version){
         version = parseInt(version);
     } else {

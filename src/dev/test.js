@@ -23,19 +23,12 @@ window.addEventListener('load', e => {
                 version = 1;
             }
             const title = document.querySelector('h1').innerHTML.replace(/\s/g, '');
-            button.onclick = e => {
-                const data = `<!doctype html>
-                    <html><head>
-                    <meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
-                    <title>${title}</title>
-                    <style>${markCSS}</style>
-                    <style>${vs2015CSS}</style>
-                    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/highlight.min.js"></script>
-                    <script>${initJS}</script>
-                    </head>
-                    <body><article class="markdown-body">${raw}</article></body></html>`;
-                const blob = new Blob([data], {type:'text/plain'});
+            button.onclick = async e => {
+                const res = await fetch('study://download/', {
+                    method:'POST',
+                    body:JSON.stringify({title, raw})
+                });
+                const blob = await res.blob();
                 const a = document.createElement('a');
                 a.href = URL.createObjectURL(blob);
                 a.download = `${title}.html`;
