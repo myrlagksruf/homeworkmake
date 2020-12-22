@@ -1,3 +1,7 @@
+# HomeworkMake
+
+<img src="./img/study.ico">
+
 # 1. 프로그램 구성
 
 - src
