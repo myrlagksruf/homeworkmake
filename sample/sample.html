@@ -1,0 +1,1701 @@
+<!doctype html>
+                    <html><head>
+                    <meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+                    <title>for문,Array,Event문제</title>
+                    <style>.markdown-body {
+    box-sizing: border-box;
+    min-width: 100px;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 15px;
+  }
+  
+@media (max-width: 767px) {
+    .markdown-body {
+        padding: 15px;
+    }
+}
+.markdown-body .octicon {
+    display: inline-block;
+    fill: currentColor;
+    vertical-align: text-bottom;
+  }
+  
+  .markdown-body .anchor {
+    float: left;
+    line-height: 1;
+    margin-left: -20px;
+    padding-right: 4px;
+  }
+  
+  .markdown-body .anchor:focus {
+    outline: none;
+  }
+  
+  .markdown-body h1 .octicon-link,
+  .markdown-body h2 .octicon-link,
+  .markdown-body h3 .octicon-link,
+  .markdown-body h4 .octicon-link,
+  .markdown-body h5 .octicon-link,
+  .markdown-body h6 .octicon-link {
+    color: #1b1f23;
+    vertical-align: middle;
+    visibility: hidden;
+  }
+  
+  .markdown-body h1:hover .anchor,
+  .markdown-body h2:hover .anchor,
+  .markdown-body h3:hover .anchor,
+  .markdown-body h4:hover .anchor,
+  .markdown-body h5:hover .anchor,
+  .markdown-body h6:hover .anchor {
+    text-decoration: none;
+  }
+  
+  .markdown-body h1:hover .anchor .octicon-link,
+  .markdown-body h2:hover .anchor .octicon-link,
+  .markdown-body h3:hover .anchor .octicon-link,
+  .markdown-body h4:hover .anchor .octicon-link,
+  .markdown-body h5:hover .anchor .octicon-link,
+  .markdown-body h6:hover .anchor .octicon-link {
+    visibility: visible;
+  }
+  
+  .markdown-body h1:hover .anchor .octicon-link:before,
+  .markdown-body h2:hover .anchor .octicon-link:before,
+  .markdown-body h3:hover .anchor .octicon-link:before,
+  .markdown-body h4:hover .anchor .octicon-link:before,
+  .markdown-body h5:hover .anchor .octicon-link:before,
+  .markdown-body h6:hover .anchor .octicon-link:before {
+    width: 16px;
+    height: 16px;
+    content: ' ';
+    display: inline-block;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' version='1.1' width='16' height='16' aria-hidden='true'%3E%3Cpath fill-rule='evenodd' d='M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z'%3E%3C/path%3E%3C/svg%3E");
+  }.markdown-body {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    line-height: 1.5;
+    color: #24292e;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+    font-size: 16px;
+    line-height: 1.5;
+    word-wrap: break-word;
+  }
+  
+  .markdown-body details {
+    display: block;
+  }
+  
+  .markdown-body summary {
+    display: list-item;
+  }
+  
+  .markdown-body a {
+    background-color: initial;
+  }
+  
+  .markdown-body a:active,
+  .markdown-body a:hover {
+    outline-width: 0;
+  }
+  
+  .markdown-body strong {
+    font-weight: inherit;
+    font-weight: bolder;
+  }
+  
+  .markdown-body h1 {
+    font-size: 2em;
+    margin: .67em 0;
+  }
+  
+  .markdown-body img {
+    border-style: none;
+  }
+  
+  .markdown-body code,
+  .markdown-body kbd,
+  .markdown-body pre {
+    font-family: monospace,monospace;
+    font-size: 1em;
+  }
+  
+  .markdown-body hr {
+    box-sizing: initial;
+    height: 0;
+    overflow: visible;
+  }
+  
+  .markdown-body input {
+    font: inherit;
+    margin: 0;
+  }
+  
+  .markdown-body input {
+    overflow: visible;
+  }
+  
+  .markdown-body [type=checkbox] {
+    box-sizing: border-box;
+    padding: 0;
+  }
+  
+  .markdown-body * {
+    box-sizing: border-box;
+  }
+  
+  .markdown-body input {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+  
+  .markdown-body a {
+    color: #0366d6;
+    text-decoration: none;
+  }
+  
+  .markdown-body a:hover {
+    text-decoration: underline;
+  }
+  
+  .markdown-body strong {
+    font-weight: 600;
+  }
+  
+  .markdown-body hr {
+    height: 0;
+    margin: 15px 0;
+    overflow: hidden;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid #dfe2e5;
+  }
+  
+  .markdown-body hr:after,
+  .markdown-body hr:before {
+    display: table;
+    content: "";
+  }
+  
+  .markdown-body hr:after {
+    clear: both;
+  }
+  
+  .markdown-body table {
+    border-spacing: 0;
+    border-collapse: collapse;
+  }
+  
+  .markdown-body td,
+  .markdown-body th {
+    padding: 0;
+  }
+  
+  .markdown-body details summary {
+    cursor: pointer;
+  }
+  
+  .markdown-body kbd {
+    display: inline-block;
+    padding: 3px 5px;
+    font: 11px SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    line-height: 10px;
+    color: #444d56;
+    vertical-align: middle;
+    background-color: #fafbfc;
+    border: 1px solid #d1d5da;
+    border-radius: 3px;
+    box-shadow: inset 0 -1px 0 #d1d5da;
+  }
+  
+  .markdown-body h1,
+  .markdown-body h2,
+  .markdown-body h3,
+  .markdown-body h4,
+  .markdown-body h5,
+  .markdown-body h6 {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  .markdown-body h1 {
+    font-size: 32px;
+  }
+  
+  .markdown-body h1,
+  .markdown-body h2 {
+    font-weight: 600;
+  }
+  
+  .markdown-body h2 {
+    font-size: 24px;
+  }
+  
+  .markdown-body h3 {
+    font-size: 20px;
+  }
+  
+  .markdown-body h3,
+  .markdown-body h4 {
+    font-weight: 600;
+  }
+  
+  .markdown-body h4 {
+    font-size: 16px;
+  }
+  
+  .markdown-body h5 {
+    font-size: 14px;
+  }
+  
+  .markdown-body h5,
+  .markdown-body h6 {
+    font-weight: 600;
+  }
+  
+  .markdown-body h6 {
+    font-size: 12px;
+  }
+  
+  .markdown-body p {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  
+  .markdown-body blockquote {
+    margin: 0;
+  }
+  
+  .markdown-body ol,
+  .markdown-body ul {
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  .markdown-body ol ol,
+  .markdown-body ul ol {
+    list-style-type: lower-roman;
+  }
+  
+  .markdown-body ol ol ol,
+  .markdown-body ol ul ol,
+  .markdown-body ul ol ol,
+  .markdown-body ul ul ol {
+    list-style-type: lower-alpha;
+  }
+  
+  .markdown-body dd {
+    margin-left: 0;
+  }
+  
+  .markdown-body code,
+  .markdown-body pre {
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    font-size: 12px;
+  }
+  
+  .markdown-body pre {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  .markdown-body input::-webkit-inner-spin-button,
+  .markdown-body input::-webkit-outer-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  
+  .markdown-body :checked+.radio-label {
+    position: relative;
+    z-index: 1;
+    border-color: #0366d6;
+  }
+  
+  .markdown-body .border {
+    border: 1px solid #e1e4e8!important;
+  }
+  
+  .markdown-body .border-0 {
+    border: 0!important;
+  }
+  
+  .markdown-body .border-bottom {
+    border-bottom: 1px solid #e1e4e8!important;
+  }
+  
+  .markdown-body .rounded-1 {
+    border-radius: 3px!important;
+  }
+  
+  .markdown-body .bg-white {
+    background-color: #fff!important;
+  }
+  
+  .markdown-body .bg-gray-light {
+    background-color: #fafbfc!important;
+  }
+  
+  .markdown-body .text-gray-light {
+    color: #6a737d!important;
+  }
+  
+  .markdown-body .mb-0 {
+    margin-bottom: 0!important;
+  }
+  
+  .markdown-body .my-2 {
+    margin-top: 8px!important;
+    margin-bottom: 8px!important;
+  }
+  
+  .markdown-body .pl-0 {
+    padding-left: 0!important;
+  }
+  
+  .markdown-body .py-0 {
+    padding-top: 0!important;
+    padding-bottom: 0!important;
+  }
+  
+  .markdown-body .pl-1 {
+    padding-left: 4px!important;
+  }
+  
+  .markdown-body .pl-2 {
+    padding-left: 8px!important;
+  }
+  
+  .markdown-body .py-2 {
+    padding-top: 8px!important;
+    padding-bottom: 8px!important;
+  }
+  
+  .markdown-body .pl-3,
+  .markdown-body .px-3 {
+    padding-left: 16px!important;
+  }
+  
+  .markdown-body .px-3 {
+    padding-right: 16px!important;
+  }
+  
+  .markdown-body .pl-4 {
+    padding-left: 24px!important;
+  }
+  
+  .markdown-body .pl-5 {
+    padding-left: 32px!important;
+  }
+  
+  .markdown-body .pl-6 {
+    padding-left: 40px!important;
+  }
+  
+  .markdown-body .f6 {
+    font-size: 12px!important;
+  }
+  
+  .markdown-body .lh-condensed {
+    line-height: 1.25!important;
+  }
+  
+  .markdown-body .text-bold {
+    font-weight: 600!important;
+  }
+  
+  .markdown-body .pl-c {
+    color: #6a737d;
+  }
+  
+  .markdown-body .pl-c1,
+  .markdown-body .pl-s .pl-v {
+    color: #005cc5;
+  }
+  
+  .markdown-body .pl-e,
+  .markdown-body .pl-en {
+    color: #6f42c1;
+  }
+  
+  .markdown-body .pl-s .pl-s1,
+  .markdown-body .pl-smi {
+    color: #24292e;
+  }
+  
+  .markdown-body .pl-ent {
+    color: #22863a;
+  }
+  
+  .markdown-body .pl-k {
+    color: #d73a49;
+  }
+  
+  .markdown-body .pl-pds,
+  .markdown-body .pl-s,
+  .markdown-body .pl-s .pl-pse .pl-s1,
+  .markdown-body .pl-sr,
+  .markdown-body .pl-sr .pl-cce,
+  .markdown-body .pl-sr .pl-sra,
+  .markdown-body .pl-sr .pl-sre {
+    color: #032f62;
+  }
+  
+  .markdown-body .pl-smw,
+  .markdown-body .pl-v {
+    color: #e36209;
+  }
+  
+  .markdown-body .pl-bu {
+    color: #b31d28;
+  }
+  
+  .markdown-body .pl-ii {
+    color: #fafbfc;
+    background-color: #b31d28;
+  }
+  
+  .markdown-body .pl-c2 {
+    color: #fafbfc;
+    background-color: #d73a49;
+  }
+  
+  .markdown-body .pl-c2:before {
+    content: "^M";
+  }
+  
+  .markdown-body .pl-sr .pl-cce {
+    font-weight: 700;
+    color: #22863a;
+  }
+  
+  .markdown-body .pl-ml {
+    color: #735c0f;
+  }
+  
+  .markdown-body .pl-mh,
+  .markdown-body .pl-mh .pl-en,
+  .markdown-body .pl-ms {
+    font-weight: 700;
+    color: #005cc5;
+  }
+  
+  .markdown-body .pl-mi {
+    font-style: italic;
+    color: #24292e;
+  }
+  
+  .markdown-body .pl-mb {
+    font-weight: 700;
+    color: #24292e;
+  }
+  
+  .markdown-body .pl-md {
+    color: #b31d28;
+    background-color: #ffeef0;
+  }
+  
+  .markdown-body .pl-mi1 {
+    color: #22863a;
+    background-color: #f0fff4;
+  }
+  
+  .markdown-body .pl-mc {
+    color: #e36209;
+    background-color: #ffebda;
+  }
+  
+  .markdown-body .pl-mi2 {
+    color: #f6f8fa;
+    background-color: #005cc5;
+  }
+  
+  .markdown-body .pl-mdr {
+    font-weight: 700;
+    color: #6f42c1;
+  }
+  
+  .markdown-body .pl-ba {
+    color: #586069;
+  }
+  
+  .markdown-body .pl-sg {
+    color: #959da5;
+  }
+  
+  .markdown-body .pl-corl {
+    text-decoration: underline;
+    color: #032f62;
+  }
+  
+  .markdown-body .mb-0 {
+    margin-bottom: 0!important;
+  }
+  
+  .markdown-body .my-2 {
+    margin-bottom: 8px!important;
+  }
+  
+  .markdown-body .my-2 {
+    margin-top: 8px!important;
+  }
+  
+  .markdown-body .pl-0 {
+    padding-left: 0!important;
+  }
+  
+  .markdown-body .py-0 {
+    padding-top: 0!important;
+    padding-bottom: 0!important;
+  }
+  
+  .markdown-body .pl-1 {
+    padding-left: 4px!important;
+  }
+  
+  .markdown-body .pl-2 {
+    padding-left: 8px!important;
+  }
+  
+  .markdown-body .py-2 {
+    padding-top: 8px!important;
+    padding-bottom: 8px!important;
+  }
+  
+  .markdown-body .pl-3 {
+    padding-left: 16px!important;
+  }
+  
+  .markdown-body .pl-4 {
+    padding-left: 24px!important;
+  }
+  
+  .markdown-body .pl-5 {
+    padding-left: 32px!important;
+  }
+  
+  .markdown-body .pl-6 {
+    padding-left: 40px!important;
+  }
+  
+  .markdown-body .pl-7 {
+    padding-left: 48px!important;
+  }
+  
+  .markdown-body .pl-8 {
+    padding-left: 64px!important;
+  }
+  
+  .markdown-body .pl-9 {
+    padding-left: 80px!important;
+  }
+  
+  .markdown-body .pl-10 {
+    padding-left: 96px!important;
+  }
+  
+  .markdown-body .pl-11 {
+    padding-left: 112px!important;
+  }
+  
+  .markdown-body .pl-12 {
+    padding-left: 128px!important;
+  }
+  
+  .markdown-body hr {
+    border-bottom-color: #eee;
+  }
+  
+  .markdown-body kbd {
+    display: inline-block;
+    padding: 3px 5px;
+    font: 11px SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    line-height: 10px;
+    color: #444d56;
+    vertical-align: middle;
+    background-color: #fafbfc;
+    border: 1px solid #d1d5da;
+    border-radius: 3px;
+    box-shadow: inset 0 -1px 0 #d1d5da;
+  }
+  
+  .markdown-body:after,
+  .markdown-body:before {
+    display: table;
+    content: "";
+  }
+  
+  .markdown-body:after {
+    clear: both;
+  }
+  
+  .markdown-body>:first-child {
+    margin-top: 0!important;
+  }
+  
+  .markdown-body>:last-child {
+    margin-bottom: 0!important;
+  }
+  
+  .markdown-body a:not([href]) {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  .markdown-body blockquote,
+  .markdown-body details,
+  .markdown-body dl,
+  .markdown-body ol,
+  .markdown-body p,
+  .markdown-body pre,
+  .markdown-body table,
+  .markdown-body ul {
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+  
+  .markdown-body hr {
+    height: .25em;
+    padding: 0;
+    margin: 24px 0;
+    background-color: #e1e4e8;
+    border: 0;
+  }
+  
+  .markdown-body blockquote {
+    padding: 0 1em;
+    color: #6a737d;
+    border-left: .25em solid #dfe2e5;
+  }
+  
+  .markdown-body blockquote>:first-child {
+    margin-top: 0;
+  }
+  
+  .markdown-body blockquote>:last-child {
+    margin-bottom: 0;
+  }
+  
+  .markdown-body h1,
+  .markdown-body h2,
+  .markdown-body h3,
+  .markdown-body h4,
+  .markdown-body h5,
+  .markdown-body h6 {
+    margin-top: 24px;
+    margin-bottom: 16px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+  
+  .markdown-body h1 {
+    font-size: 2em;
+  }
+  
+  .markdown-body h1,
+  .markdown-body h2 {
+    padding-bottom: .3em;
+    border-bottom: 1px solid #eaecef;
+  }
+  
+  .markdown-body h2 {
+    font-size: 1.5em;
+  }
+  
+  .markdown-body h3 {
+    font-size: 1.25em;
+  }
+  
+  .markdown-body h4 {
+    font-size: 1em;
+  }
+  
+  .markdown-body h5 {
+    font-size: .875em;
+  }
+  
+  .markdown-body h6 {
+    font-size: .85em;
+    color: #6a737d;
+  }
+  
+  .markdown-body ol,
+  .markdown-body ul {
+    padding-left: 2em;
+  }
+  
+  .markdown-body ol ol,
+  .markdown-body ol ul,
+  .markdown-body ul ol,
+  .markdown-body ul ul {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  .markdown-body li {
+    word-wrap: break-all;
+  }
+  
+  .markdown-body li>p {
+    margin-top: 16px;
+  }
+  
+  .markdown-body li+li {
+    margin-top: .25em;
+  }
+  
+  .markdown-body dl {
+    padding: 0;
+  }
+  
+  .markdown-body dl dt {
+    padding: 0;
+    margin-top: 16px;
+    font-size: 1em;
+    font-style: italic;
+    font-weight: 600;
+  }
+  
+  .markdown-body dl dd {
+    padding: 0 16px;
+    margin-bottom: 16px;
+  }
+  
+  .markdown-body table {
+    display: block;
+    width: 100%;
+    overflow: auto;
+  }
+  
+  .markdown-body table th {
+    font-weight: 600;
+  }
+  
+  .markdown-body table td,
+  .markdown-body table th {
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+  }
+  
+  .markdown-body table tr {
+    background-color: #fff;
+    border-top: 1px solid #c6cbd1;
+  }
+  
+  .markdown-body table tr:nth-child(2n) {
+    background-color: #f6f8fa;
+  }
+  
+  .markdown-body img {
+    max-width: 100%;
+    box-sizing: initial;
+    background-color: #fff;
+  }
+  
+  .markdown-body img[align=right] {
+    padding-left: 20px;
+  }
+  
+  .markdown-body img[align=left] {
+    padding-right: 20px;
+  }
+  
+  .markdown-body code {
+    padding: .2em .4em;
+    margin: 0;
+    font-size: 85%;
+    background-color: rgba(27,31,35,.05);
+    border-radius: 3px;
+  }
+  
+  .markdown-body pre {
+    word-wrap: normal;
+  }
+  
+  .markdown-body pre>code {
+    padding: 0;
+    margin: 0;
+    font-size: 100%;
+    word-break: normal;
+    white-space: pre;
+    background: transparent;
+    border: 0;
+  }
+  
+  .markdown-body .highlight {
+    margin-bottom: 16px;
+  }
+  
+  .markdown-body .highlight pre {
+    margin-bottom: 0;
+    word-break: normal;
+  }
+  
+  .markdown-body .highlight pre,
+  .markdown-body pre {
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: rgb(30, 30, 30);
+    border-radius: 3px;
+  }
+  .markdown-body pre.wrong {
+    border: 5px solid red;
+  }
+  .markdown-body pre.correct{
+    border: 5px solid blue;
+  }
+  
+  .markdown-body pre code {
+    display: inline;
+    max-width: auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    line-height: inherit;
+    word-wrap: normal;
+    background-color: initial;
+    border: 0;
+  }
+  
+  .markdown-body .commit-tease-sha {
+    display: inline-block;
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    font-size: 90%;
+    color: #444d56;
+  }
+  
+  .markdown-body .full-commit .btn-outline:not(:disabled):hover {
+    color: #005cc5;
+    border-color: #005cc5;
+  }
+  
+  .markdown-body .blob-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  
+  .markdown-body .blob-wrapper-embedded {
+    max-height: 240px;
+    overflow-y: auto;
+  }
+  
+  .markdown-body .blob-num {
+    width: 1%;
+    min-width: 50px;
+    padding-right: 10px;
+    padding-left: 10px;
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    font-size: 12px;
+    line-height: 20px;
+    color: rgba(27,31,35,.3);
+    text-align: right;
+    white-space: nowrap;
+    vertical-align: top;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  .markdown-body .blob-num:hover {
+    color: rgba(27,31,35,.6);
+  }
+  
+  .markdown-body .blob-num:before {
+    content: attr(data-line-number);
+  }
+  
+  .markdown-body .blob-code {
+    position: relative;
+    padding-right: 10px;
+    padding-left: 10px;
+    line-height: 20px;
+    vertical-align: top;
+  }
+  
+  .markdown-body .blob-code-inner {
+    overflow: visible;
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    font-size: 12px;
+    color: #24292e;
+    word-wrap: normal;
+    white-space: pre;
+  }
+  
+  .markdown-body .pl-token.active,
+  .markdown-body .pl-token:hover {
+    cursor: pointer;
+    background: #ffea7f;
+  }
+  
+  .markdown-body .tab-size[data-tab-size="1"] {
+    -moz-tab-size: 1;
+    tab-size: 1;
+  }
+  
+  .markdown-body .tab-size[data-tab-size="2"] {
+    -moz-tab-size: 2;
+    tab-size: 2;
+  }
+  
+  .markdown-body .tab-size[data-tab-size="3"] {
+    -moz-tab-size: 3;
+    tab-size: 3;
+  }
+  
+  .markdown-body .tab-size[data-tab-size="4"] {
+    -moz-tab-size: 4;
+    tab-size: 4;
+  }
+  
+  .markdown-body .tab-size[data-tab-size="5"] {
+    -moz-tab-size: 5;
+    tab-size: 5;
+  }
+  
+  .markdown-body .tab-size[data-tab-size="6"] {
+    -moz-tab-size: 6;
+    tab-size: 6;
+  }
+  
+  .markdown-body .tab-size[data-tab-size="7"] {
+    -moz-tab-size: 7;
+    tab-size: 7;
+  }
+  
+  .markdown-body .tab-size[data-tab-size="8"] {
+    -moz-tab-size: 8;
+    tab-size: 8;
+  }
+  
+  .markdown-body .tab-size[data-tab-size="9"] {
+    -moz-tab-size: 9;
+    tab-size: 9;
+  }
+  
+  .markdown-body .tab-size[data-tab-size="10"] {
+    -moz-tab-size: 10;
+    tab-size: 10;
+  }
+  
+  .markdown-body .tab-size[data-tab-size="11"] {
+    -moz-tab-size: 11;
+    tab-size: 11;
+  }
+  
+  .markdown-body .tab-size[data-tab-size="12"] {
+    -moz-tab-size: 12;
+    tab-size: 12;
+  }
+  
+  .markdown-body .task-list-item {
+    list-style-type: none;
+  }
+  
+  .markdown-body .task-list-item+.task-list-item {
+    margin-top: 3px;
+  }
+  
+  .markdown-body .task-list-item input {
+    margin: 0 .2em .25em -1.6em;
+    vertical-align: middle;
+  }</style>
+                    <style>/*
+* Visual Studio 2015 dark style
+* Author: Nicolas LLOBERA <nllobera@gmail.com>
+*/
+
+.hljs {
+ display: block;
+ overflow-x: auto;
+ padding: 0.5em;
+ background: #1E1E1E;
+ color: #DCDCDC;
+}
+
+.hljs-keyword,
+.hljs-literal,
+.hljs-symbol,
+.hljs-name {
+ color: #569CD6;
+}
+.hljs-link {
+ color: #569CD6;
+ text-decoration: underline;
+}
+
+.hljs-built_in,
+.hljs-type {
+ color: #4EC9B0;
+}
+
+.hljs-number,
+.hljs-class {
+ color: #B8D7A3;
+}
+
+.hljs-string,
+.hljs-meta-string {
+ color: #D69D85;
+}
+
+.hljs-regexp,
+.hljs-template-tag {
+ color: #9A5334;
+}
+
+.hljs-subst,
+.hljs-function,
+.hljs-title,
+.hljs-params,
+.hljs-formula {
+ color: #DCDCDC;
+}
+
+.hljs-comment,
+.hljs-quote {
+ color: #57A64A;
+ font-style: italic;
+}
+
+.hljs-doctag {
+ color: #608B4E;
+}
+
+.hljs-meta,
+.hljs-meta-keyword,
+.hljs-tag {
+ color: #9B9B9B;
+}
+
+.hljs-variable,
+.hljs-template-variable {
+ color: #BD63C5;
+}
+
+.hljs-attr,
+.hljs-attribute,
+.hljs-builtin-name {
+ color: #9CDCFE;
+}
+
+.hljs-section {
+ color: gold;
+}
+
+.hljs-emphasis {
+ font-style: italic;
+}
+
+.hljs-strong {
+ font-weight: bold;
+}
+
+/*.hljs-code {
+ font-family:'Monospace';
+}*/
+
+.hljs-bullet,
+.hljs-selector-tag,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+ color: #D7BA7D;
+}
+
+.hljs-addition {
+ background-color: #144212;
+ display: inline-block;
+ width: 100%;
+}
+
+.hljs-deletion {
+ background-color: #600;
+ display: inline-block;
+ width: 100%;
+}</style>
+                    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/highlight.min.js"></script>
+                    <script>const digestMessage = async m => btoa(new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(m))).reduce((a, b) => a + String.fromCharCode(b), ''));
+
+const promisify = (elem, type="success", fun = e => e) => {
+    let resolve, reject;
+    const pro = new Promise((res, rej) => {
+        resolve = res;
+        reject = rej;
+        elem.addEventListener(type, res, {once:true});
+        elem.addEventListener('error', rej, {once:true});
+    }).then(e => {
+        elem.removeEventListener('error', reject, {once:true});
+        return e;
+    }).then(fun)
+    .catch(err => {
+        console.error(err);
+        elem.removeEventListener(type, resolve, {once:true});
+    });
+    return pro;
+};
+
+const getDB = async (name, store, version) => {
+    let DBVH = (await indexedDB.databases()).find(v => v.name === name)?.version ?? 1;
+    const dbconfirm = indexedDB.open(name, DBVH);
+    dbconfirm.onupgradeneeded = e => {
+        const db = e.target.result;
+        if(!db.objectStoreNames.contains('VH')){
+            const db = e.target.result;
+            const objectStore = db.createObjectStore('VH', {keyPath: 'name'});
+            objectStore.createIndex('version', 'version', {unique:false});
+        }
+    };
+    let { target: { result:dbTemp } } = await promisify(dbconfirm);
+    let objVersion;
+    if(dbTemp.objectStoreNames.contains('VH')){
+        const objectStore = dbTemp.transaction('VH', "readwrite").objectStore('VH');
+        const { target: { result:ver } } = await promisify(objectStore.get(store));
+        objVersion = ver?.version;
+    } else {
+        dbTemp.close();
+        const dbconfirm = indexedDB.open(name, ++DBVH);
+        dbconfirm.onupgradeneeded = e => {
+            const db = e.target.result;
+            const objectStore = db.createObjectStore('VH', {keyPath: 'name'});
+            objectStore.createIndex('version', 'version', {unique:false});
+        };
+        dbTemp = (await promisify(dbconfirm)).target.result;
+        const objectStore = dbTemp.transaction('VH', "readwrite").objectStore('VH');
+        const { target: { result:ver } } = await promisify(objectStore.get(store));
+        objVersion = ver?.version;
+    }
+    
+    if(objVersion === version){
+        const objStr = dbTemp.transaction(store, "readwrite").objectStore(store);
+        document.querySelectorAll('[data-id]').forEach(v => objStr.add({num:v.dataset.id, correct:0, tryArr:[]}));
+        return dbTemp;
+    } else {
+        if(objVersion > version){
+            if(!confirm('데이터가 전 버전입니다. 그래도 그대로 하시겠습니까?')) return false;
+        }
+        dbTemp.close();
+        const dbReq = indexedDB.open(name, ++DBVH);
+        dbReq.onupgradeneeded = e => {
+            const db = e.target.result;
+            if(db.objectStoreNames.contains(store)){
+                db.deleteObjectStore(store);
+            }
+            const objectStore = db.createObjectStore(store, {keyPath: 'num'});
+            objectStore.createIndex('tryArr', 'tryArr', {unique:false});
+            objectStore.createIndex('correct', 'correct', {unique: false});
+            objectStore.transaction.oncomplete = e => {
+                const transaction = db.transaction(['VH', store], "readwrite");
+                const objStr = transaction.objectStore(store);
+                const objVH = transaction.objectStore('VH');
+                objVH.put({name: store, version });
+                document.querySelectorAll('[data-id]').forEach(v => objStr.add({num:v.dataset.id, correct:0, tryArr:[]}));
+            };
+        };
+        const { target:{ result } } = await promisify(dbReq);
+        return result;
+    }
+};
+
+const initSetting = async (code, store, map, version = 1) => {
+    const db = await getDB('myDB', store, version);
+    if(!db){
+        alert('프로그램을 종료합니다.');
+        window.close();
+        return false;
+    }
+    for(const i in code){
+        if(isNaN(i)) break;
+        const block = code[i];
+        hljs.highlightBlock(block);
+        const par = block.parentElement;
+        const objectStore = db.transaction([store], "readwrite").objectStore(store);
+        const req = objectStore.get('' + i);
+        const { target: { result: { correct } } } = await promisify(req);
+        if(correct == 1){
+            par.classList.add('wrong');
+        } else if(correct == 2){
+            par.classList.add('correct');
+        }
+    }
+    document.querySelectorAll('[data-id]').forEach(async v => {
+        let div = document.createElement('div');
+        let but = document.createElement('button');
+        but.innerHTML = '제출하기';
+        but.dataset.ans = map.get(v.dataset.id);
+        but.onclick = async e => {
+            let val = await digestMessage(v.value);
+            let what = '';
+            if(val == e.target.dataset.ans){
+                alert(v.dataset.id + '번 문제를 맞췄습니다!!!');
+                what = 'correct';
+            } else {
+                alert('틀렸습니다 ㅠㅠ');
+                what = 'wrong';
+            }
+            const start = code[v.dataset.id].parentElement;
+            const objectStore = db.transaction([store], "readwrite").objectStore(store);
+            const req = objectStore.get(v.dataset.id);
+            let { target:{ result:{ correct, tryArr } } } = await promisify(req);
+            tryArr.push(v.value);
+            // const objectStore = db.transaction([store], "readwrite").objectStore(store);
+            if(what == 'correct'){
+                correct = 2;
+            } else if(what == 'wrong' && correct < 2){
+                correct = 1;
+            }
+            objectStore.put({num:v.dataset.id, correct, tryArr});
+            start.classList.add(what);
+            v.value = '';
+        };
+        div.appendChild(but);
+        v.insertAdjacentElement('afterend', div);
+    });
+};
+
+const text = async (txt, option = {dataType : true, ansType : true}) => {
+    const reg = /\/\*\%([^]+?)\%\*\//g;
+    const textReg = /\&((\#\d+?)|(\w+?))\;/g;
+    const textObj = {
+        qAElig: "Æ",
+        Aacute: "A",
+        Acirc: "A",
+        Agrave: "A",
+        Aring: "A",
+        Atilde: "A",
+        Auml: "A",
+        Ccedil: "C" ,
+        ETH: "Ð",
+        Eacute: "E",
+        Ecirc: "E",
+        Egrave: "E",
+        Euml: "E",
+        Iacute: "I",
+        Icirc: "I",
+        Igrave: "I",
+        Iuml: "I",
+        Ntilde: "N",
+        Oacute: "O",
+        Ocirc: "O",
+        Ograve: "O",
+        Oslash: "Ø",
+        Otilde: "O",
+        Ouml: "O",
+        THORN: "Þ",
+        Uacute: "U",
+        Ucirc: "U",
+        Ugrave: "U",
+        Uuml: "U",
+        Yacute: "Y",
+        aacute: "a",
+        acirc: "a",
+        acute: "´",
+        aelig: "æ",
+        agrave: "a",
+        amp: "&",
+        aring: "a",
+        atilde: "a",
+        auml: "a",
+        brvbar: "|",
+        ccedil: "c",
+        cedil: "¸",
+        cent: "￠",
+        copy: "ⓒ",
+        curren: "¤",
+        deg: "°",
+        divide: "÷",
+        eacute: "e",
+        ecirc: "e",
+        egrave: "e",
+        eth: "ð",
+        euml: "e",
+        frac12: "½",
+        frac14: "¼",
+        frac34: "¾",
+        gt: ">",
+        iacute: "i",
+        icirc: "i",
+        iexcl: "¡",
+        igrave: "i",
+        iquest: "¿",
+        iuml: "i",
+        laquo: "≪",
+        lt: "<",
+        micro: "μ",
+        middot: "·",
+        nbsp: "",
+        not: "￢",
+        ntilde: "n",
+        oacute: "o",
+        ocirc: "o",
+        ograve: "o",
+        ordf: "ª",
+        ordm: "º",
+        oslash: "ø",
+        otilde: "o",
+        ouml: "o",
+        para: "¶",
+        plusmn: "±",
+        pound: "￡",
+        quot: '"',
+        raquo: "≫",
+        reg: "?",
+        sect: "§",
+        shy: "­",
+        sup1: "¹",
+        sup2: "²",
+        sup3: "³",
+        szlig: "ß",
+        thorn: "þ",
+        times: "×",
+        uacute: "u",
+        ucirc: "u",
+        ugrave: "u",
+        uml: "¨",
+        uuml: "u",
+        yacute: "y",
+        yen: "￥",
+        yuml: "y",
+    };
+    const toJSON = v => JSON.parse(v.replace(reg, '$1').replace(textReg, (_, b) => {
+        if(b[0] === '#'){
+            return String.fromCharCode(parseInt(b.slice(1)));
+        } else {
+            const res = textObj[b];
+            if(res) return res;
+            else return '';
+        }
+    }));
+    let data = '';
+    if(option.dataType){
+        data = marked(txt);
+    } else {
+        data = txt;
+    }
+    const ans = data.match(reg).map(toJSON);
+    const map = new Map();
+    if(option.ansType){
+        for(let v of ans){
+            const x = await digestMessage(v.ans);
+            map.set(v.num, x);
+        }
+    } else {
+        for(let v of ans){
+            map.set(v.num, v.ans);
+        }
+    }
+    const raw = data.replace(reg, a => {
+        const data = toJSON(a);
+        data.ans = map.get(data.num);
+        return '/*%' + JSON.stringify(data) + '%*/';
+    });
+    data = data.replace(reg, '');
+    return { data, map, raw };
+};
+
+window.addEventListener('load', async () => {
+    const { data, map }= await text(document.querySelector('.markdown-body').innerHTML, {dataType: false, ansType: false});
+    document.querySelector('.markdown-body').innerHTML = data;
+    let version = document.querySelector('h2')?.innerHTML?.match(/d+/)?.[0];
+    if(version){
+        version = parseInt(version);
+    } else {
+        version = 1;
+    }
+    await initSetting(document.querySelectorAll('pre code'), document.querySelector('h1').innerHTML.replace(/s/g, ''), map, version);
+    window.addEventListener('contextmenu', e => e.preventDefault());
+    window.addEventListener('selectstart', e => e.preventDefault());
+    window.addEventListener('dragstart', e => e.preventDefault());
+});</script>
+                    </head>
+                    <body><article class="markdown-body"><h1 id="for문-array-event-문제">for문, Array, Event 문제</h1>
+<h2 id="version--2">version : 2</h2>
+<h3 id="다음-코드를-보고-consolelog의-결과를-작성하시오">다음 코드를 보고 console.log의 결과를 작성하시오.</h3>
+<pre><code class="language-javascript">let arr = [];
+let x = 0;
+for(let i = 0; i &lt; 3; i++){
+    arr[i] = [];
+    for(let j = 0; j &lt; 10; j++){
+        arr[i][j] = x;
+        x += 1;
+    }
+}
+console.log(arr[2][5]);
+/*%{"num":"0","ans":"t6Voc813HyxEbTabZJQwtlp1a6J4/5fsgbtvVbLnNWk="}%*/</code></pre>
+<input type="text" data-id="0">
+
+
+
+<pre><code class="language-javascript">let s = 0;
+for(let i = 0; i &lt; 30; i++){
+    if(i % 3 == 0 &amp;&amp; i % 2 == 0) {
+        s += i;
+    }
+}
+console.log(s);
+/*%{"num":"1","ans":"OfqewZDu57b03/EQDWND4QkY0ETHXqyPnpollhc/gMk="}%*/</code></pre>
+<input type="text" data-id="1">
+
+
+
+<pre><code class="language-javascript">let str = &#39;&#39;;
+for(let i = 0; i &lt; 4; i++){
+    for(let j = 0; j &lt; 4; j++){
+        if(j == i) continue;    //모르면 인터넷에서 찾아볼 것.
+        str += `${i}${j}`;
+    }
+}
+console.log(str);
+/*%{"num":"2","ans":"MetuEodbmKjl9uHmYjthXojMSY61b/As5RZvYR90C8I="}%*/</code></pre>
+<input type="text" data-id="2">
+
+
+
+<pre><code class="language-javascript">let a = &#39;&#39;;
+for(let i = 0; i &lt; 10; i++){
+    if(i % 2 == 0){
+        continue;    
+    } else {
+        a = `${a}${i}`;
+    }
+}
+console.log(a);
+/*%{"num":"3","ans":"CgZnhlvBf51iS88RCIBXu6tGM259rmXz1TZvT3oYMz4="}%*/</code></pre>
+<input type="text" data-id="3">
+
+
+
+<pre><code class="language-javascript">let s = &#39;&#39;;
+for(let i = 7; i &gt;= 0; i -= 2){
+    for(let j = 7; j &gt;= i; j -= 2){
+        s = `${s} `;
+    }
+    for(let j = 0; j &lt; i; j++){
+        s = `${s}*`;
+    }
+    s = `${s}\n`;
+}
+console.log(s);
+/*%{"num":"4","ans":"HAHYQYSwEVesz/foYd/CJo3nUAJV2SJtBDWL/P6oTDM="}%*/</code></pre>
+<p><textarea style="height: 100px;" data-id="4"></textarea></p>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;학년&lt;/th&gt;
+            &lt;th&gt;반&lt;/th&gt;
+            &lt;th&gt;번호&lt;/th&gt;
+            &lt;th&gt;이름&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;1학년&lt;/td&gt;
+            &lt;td&gt;3반&lt;/td&gt;
+            &lt;td&gt;5번&lt;/td&gt;
+            &lt;td&gt;김한결&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;2학년&lt;/td&gt;
+            &lt;td&gt;2반&lt;/td&gt;
+            &lt;td&gt;8번&lt;/td&gt;
+            &lt;td&gt;문성준&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;3학년&lt;/td&gt;
+            &lt;td&gt;7반&lt;/td&gt;
+            &lt;td&gt;1번&lt;/td&gt;
+            &lt;td&gt;황승현&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;script&gt;
+    let trs = document.querySelectorAll(&#39;tbody &gt; tr&#39;);
+    let who = &#39;&#39;;
+    for(let i = 0; i &lt; trs.length; i++){
+        let tr = trs[i].children;
+        if(parseInt(tr[0].innerHTML) == 3){
+            who = tr[0].innerHTML;
+            for(let j = 1; j &lt; tr.length; j++){
+                who += `,${tr[j].innerHTML}`;
+            }
+        }
+    }
+    console.log(who);
+&lt;/script&gt;
+/*%{"num":"5","ans":"f+NZdlccItaHr1nP/mg1OIh3scvCiA0wxOPgDn64Jts="}%*/</code></pre>
+<input type="text" data-id="5">
+
+
+
+<h3 id="다음-코드에-주석에-달린-행동을-한-뒤-consolelog를-했을-때-결과를-작성하시오">다음 코드에 주석에 달린 행동을 한 뒤 console.log를 했을 때 결과를 작성하시오.</h3>
+<pre><code class="language-html">&lt;table&gt;
+    &lt;tbody&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;script&gt;
+    let tbody = document.querySelector(&#39;tbody&#39;);
+    let result = 0;
+    for(let i = 0; i &lt; 10; i++){
+        let tr = document.createElement(&#39;tr&#39;);
+        tbody.appendChild(tr);
+        for(let j = 0; j &lt; 10; j++){
+            let td = document.createElement(&#39;td&#39;);
+            td.innerHTML = i * 10 + j;
+            tr.appendChild(td);
+        }
+    }
+    tbody.onclick = e =&gt; {
+        if(e.target.nodeName == &#39;TD&#39;){
+            result += parseInt(e.target.innerHTML);
+        }
+    }
+    //table에 맨 왼쪽에 있는 칸들을 전부 한 번씩 클릭한 뒤 console.log(result)
+&lt;/script&gt;
+/*%{"num":"6","ans":"gxURV8ENha98hGV8ccPjYD2VUWDwUm/OZySB2oOi4JA="}%*/</code></pre>
+<input type="text" data-id="6">
+
+
+
+<pre><code class="language-html">&lt;head&gt;
+    &lt;style&gt;
+        .red{
+            background-color: red;
+        }
+        .green{
+            background-color:green;
+        }
+        .blue{
+            background-color: blue;
+        }
+        #container div{
+            width: 100px;
+            height: 100px;
+        }
+    &lt;/style&gt; 
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;container&quot;&gt;
+        &lt;div class=&quot;red&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;green&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;blue&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;script&gt;
+        let cont = document.querySelector(&#39;#container&#39;);
+        let result = 0;
+        let getString = res =&gt; {
+            let arr = [];
+            for(let i = 0; i &lt; 3; i++){
+                arr[i] = res % 256;
+                res = parseInt(res / 256);
+            }
+            return `rgb(${arr.join(&#39;,&#39;)})`;
+        }
+        cont.onclick = e =&gt; {
+            let cor = e.target.classList.value;
+            if(cor == &#39;red&#39;){
+                result += 256 * 256;
+            } else if(cor == &#39;green&#39;){
+                result += 256;
+            } else if(cor == &#39;blue&#39;){
+                result += 1;
+            }
+        }
+
+        //.red를 100번클릭, .green를 10번 클릭, .blue를 1번 클릭 후 console.log(getString(result))
+    &lt;/script&gt;
+&lt;/body&gt;
+/*%{"num":"7","ans":"aiRUUF6ci1/dmbchNbaI3xfK9fvftEtVvhjMgob+a6M="}%*/</code></pre>
+<input type="text" data-id="7">
+
+
+
+<pre><code class="language-html">&lt;h1&gt;다음 중 6의 약수가 아닌 것은?&lt;/h1&gt;
+&lt;select&gt;&lt;/select&gt;
+&lt;script&gt;
+    let sel = document.querySelector(&#39;select&#39;);
+    let arr = [1, 2, 3, 4, 6];
+    let result = &#39;&#39;;
+    for(let i = arr.length - 1; i &gt;= 0; i--){
+        let opt = document.createElement(&#39;option&#39;);
+        opt.value = arr.length - i;
+        opt.innerHTML = arr[i];
+        sel.appendChild(opt);
+    }
+    result = sel.value;
+    sel.onchange = e =&gt; {
+        result = e.target.value;
+    }
+    //h1태그에 있는 문제를 풀어 답을 맞춘 뒤 console.log(result)
+&lt;/script&gt;
+/*%{"num":"8","ans":"1HNeOiZeFu7gP1lxi5tdAwGcB9i2xR+Q2jpmbuwTqzU="}%*/</code></pre>
+<input type="text" data-id="8">
+
+
+
+<pre><code class="language-javascript">let map = [[0, 1, 0, 0],
+          [0, 0, 1, 0],
+          [1, 0, 0, 0],
+          [0, 0, 1, 0]];
+let len = map.length;
+let char = [0, 0];
+let obj = {
+    ArrowLeft: 0,
+    ArrowRight: 1,
+    ArrowUp: 2,
+    ArrowDown: 3
+}
+window.onkeydown = e =&gt; {
+    let val = obj[e.key];
+    if(!isNaN(val)){
+        let w = parseInt(val / 2);
+        val = parseInt((val % 2 - 0.5) * 2);
+        char[w] += val;
+        if(char[w] &lt; 0) char[w] = 0;
+        else if(char[w] &gt;= len) char[w] = len - 1;
+        else if(map[char[1]][char[0]] == 1) char[w] -= val;
+    }
+}
+//방향키를 순서대로 ↓, →, ↓, →, ↓, ←, ↓, ←, ←, ←, ↑, → 를 누른 뒤 console.log(`x:${char[0]},y:${char[1]}`)
+/*%{"num":"9","ans":"KM5b9Yya/koji10TYOyzpGyJ1Sx/3Wj+YM2BOPW3cXM="}%*/</code></pre>
+<input type="text" data-id="9">
+
+
+
+<pre><code class="language-html">&lt;input type=&quot;text&quot;&gt;
+&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;&lt;div&gt;&lt;/div&gt;
+&lt;script&gt;
+    let input = document.querySelector(&#39;input&#39;);
+    let i = 0;
+    let divs = document.querySelectorAll(&#39;div&#39;);
+    let getBox = e =&gt; {
+        let arr = [];
+        for(let i = 0; i &lt; e.length; i++){
+            let w = parseInt(e[i].style.width);
+            let h = parseInt(e[i].style.height);
+            arr.push(`${e[i].style.backgroundColor},${w * h}`);
+        }
+        return arr.join(&#39;;&#39;);
+    }
+    input.onkeydown = e =&gt; {
+        let arr = e.target.value.split(&#39;;&#39;);
+        if(e.key == &#39;Enter&#39;){
+            divs[i].style.backgroundColor = arr[0];
+            divs[i].style.width = `${arr[1]}px`;
+            divs[i].style.height = `${arr[2]}px`;
+            e.target.value = &#39;&#39;;
+            i += 1;
+        }
+    };
+    //input태그에 red;100;50치고 엔터 green;50;50치고 엔터, blue;100;100치고 엔터를 누른 뒤
+    //console.log(getBox(divs))
+&lt;/script&gt;
+/*%{"num":"10","ans":"7dQkUPzq+vhbf700O0BL+9MeBX9gigtgEnAAyN2Uxc8="}%*/</code></pre>
+<input type="text" data-id="10"></article></body></html>
