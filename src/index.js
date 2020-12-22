@@ -33,15 +33,12 @@ const createWindow = () => {
     if(url.match('download')){
       const str = JSON.parse(req.uploadData[0].bytes.toString());
       const opt = {encoding:'utf-8'};
-      const markCSS = await readFile('./src/css/mark.css', opt);
-      const vs2015CSS = await readFile('./src/css/vs2015.css', opt);
-      const order = ['hash.js', 'promisify.js', 'DB.js', 'initSetting.js', 'init.js'];
-      const initJS = [];
-      for(let v of order){
-        let temp = await readFile(`./src/dev/${v}`, opt);
-        temp = temp.replace(/(import|export) (.*)?;/g, '');
-        initJS.push(temp);
-      }
+      const arr = [];
+      arr.push(readFile('./src/css/mark.css', opt));
+      arr.push(readFile('./src/css/vs2015.css', opt));
+      ['hash.js', 'promisify.js', 'DB.js', 'initSetting.js', 'init.js'].forEach(v => arr.push(readFile(`./src/dev/${v}`, opt)));
+      let [markCSS, vs2015CSS, ...initJS] = await Promise.all(arr);
+      initJS = initJS.map(v => v.replace(/(import|export) (.*)?;/g, ''));
       const data = `<!doctype html>
       <html><head>
       <meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>

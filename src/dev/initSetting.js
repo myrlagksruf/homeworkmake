@@ -60,9 +60,25 @@ const initSetting = async (code, store, map, version = 1) => {
         div.appendChild(but);
         div.appendChild(document.createElement('br'));
         div.appendChild(document.createElement('br'));
+        div.appendChild(document.createElement('br'));
+        div.appendChild(document.createElement('br'));
         v.insertAdjacentElement('afterend', div);
     });
 };
+
+const readBlob = async txt => {
+    try{
+        const FL = new FileReader();
+        let res = await fetch(txt);
+        res = await res.blob();
+        FL.readAsDataURL(res);
+        let {target: {result:data}} = await promisify(FL, 'load');
+        return data;
+    }catch(err){
+        console.error(err);
+        return false;
+    }
+}
 
 const text = async (txt, option = {dataType : true, ansType : true}) => {
     const reg = /\/\*\%([^]+?)\%\*\//g;
@@ -180,6 +196,17 @@ const text = async (txt, option = {dataType : true, ansType : true}) => {
     let data = '';
     if(option.dataType){
         data = marked(txt);
+        const find = data.matchAll(/src="(.*?)"/g);
+        let arr = [];
+        const origin = [];
+        for(let i of find){
+            origin.push(i[1]);
+            arr.push(readBlob(i[1]));
+        }
+        arr = await Promise.all(arr);
+        arr.forEach((v, i) => {
+            if(v) data = data.replace(origin[i], v);
+        });
     } else {
         data = txt;
     }

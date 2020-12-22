@@ -5,7 +5,9 @@
     margin: 0 auto;
     padding: 15px;
   }
-  
+video{
+  width:100%;
+}
 @media (max-width: 767px) {
     .markdown-body {
         padding: 15px;
