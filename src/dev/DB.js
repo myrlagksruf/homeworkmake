@@ -31,12 +31,10 @@ const getDB = async (name, store, version) => {
     }
     
     if(objVersion === version){
-        const objStr = dbTemp.transaction(store, "readwrite").objectStore(store);
-        document.querySelectorAll('[data-id]').forEach(v => objStr.add({num:v.dataset.id, correct:0, tryArr:[]}));
         return dbTemp;
     } else {
         if(objVersion > version){
-            if(!confirm('데이터가 전 버전입니다. 그래도 그대로 하시겠습니까?')) return false;
+            if(!confirm('데이터가 전 버전입니다. 그래도 그대로 하시겠습니까?')) return null;
         }
         dbTemp.close();
         const dbReq = indexedDB.open(name, ++DBVH);
@@ -50,10 +48,10 @@ const getDB = async (name, store, version) => {
             objectStore.createIndex('correct', 'correct', {unique: false});
             objectStore.transaction.oncomplete = e => {
                 const transaction = db.transaction(['VH', store], "readwrite");
-                const objStr = transaction.objectStore(store);
                 const objVH = transaction.objectStore('VH');
+                const objStore = transaction.objectStore(store);
                 objVH.put({name: store, version });
-                document.querySelectorAll('[data-id]').forEach(v => objStr.add({num:v.dataset.id, correct:0, tryArr:[]}));
+                document.querySelectorAll('pre code').forEach((v, i) => objStore.add({num : `${i}`, tryArr: [], correct: 0}));
             };
         };
         const { target:{ result } } = await promisify(dbReq);
