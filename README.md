@@ -61,15 +61,10 @@
        }
    }
    console.log(arr[2][5]);
-   /*%{"num":"0", "ans": "25"}%*/	(답을 관리하는 곳이므로 꼭 작성 부탁 /*% 내용 %*/. 내용은 JSON양식)
+   /*%{"ans": "25"}%*/
+   (답을 관리하는 곳이므로 꼭 작성 부탁 /*% 내용 %*/. 내용은 JSON양식)
    ​```
    
-   <input type="text" data-id="0">	
-   (input태그은 무엇을 써도 상관 없음 단지 data-id가 무조건 위의 num의 숫자와 동일해야함.)
-   
-   .
-   .
-   .
    
    ​```javascript
    let s = '';
@@ -83,9 +78,36 @@
        s = `${s}\n`;
    }
    console.log(s);
-   /*%{"num":"4", "ans": "*******\n *****\n  ***\n   *"}%*/
+   /*%{"ans": "*******\n *****\n  ***\n   *", "type":"textarea;height,100px"}%*/
    ​```
-   
-   <textarea style="height: 100px;" data-id="4"></textarea>
-   (이렇게 textarea를 써도 상관 없음)
+   ("type" 은 문제를 표시하는 기법인데 )
    ```
+
+
+
+# 3. JSON에 들어가는 속성 정리
+
+<table>
+    <tr>
+        <th>속성명</th>
+        <th>값 타입</th>
+        <th>될 수 있는 값</th>
+    </tr>
+    <tr>
+        <th>ans</th>
+        <td>string|string[]</td>
+        <td>정답인 모든 string 및 string Array</td>
+    </tr>
+    <tr>
+        <th rowspan="3">type?</th>
+        <td rowspan="3">string|string[]</td>
+        <td>textarea;pro1,val1;pro2,val2;...;pron,valn</td>
+    </tr>
+    <tr>
+        <td>select;pro1,val1;...;pron,valn(ans1,ans2,...,ansn)</td>
+    </tr>
+    <tr>
+        <td>type;pro1,val1;...;pron,valn<br>(type의 경우 input type속성이 될 수 있는 값)</td>
+    </tr>
+</table>
+
