@@ -36,7 +36,9 @@ const createWindow = () => {
       const arr = [];
       arr.push(readFile('./src/css/mark.css', opt));
       arr.push(readFile('./src/css/vs2015.css', opt));
-      ['hash.js', 'promisify.js', 'DB.js', 'initSetting.js', 'init.js'].forEach(v => arr.push(readFile(`./src/dev/${v}`, opt)));
+      let init = 'initSetting.js';
+      if(url.match('true')) init = 'initTestMode.js';
+      ['hash.js', 'promisify.js', 'DB.js', init, 'text.js', 'init.js'].forEach(v => arr.push(readFile(`./src/dev/${v}`, opt)));
       let [markCSS, vs2015CSS, ...initJS] = await Promise.all(arr);
       initJS = initJS.map(v => v.replace(/(import|export) (.*)?;/g, ''));
       const data = `<!doctype html>

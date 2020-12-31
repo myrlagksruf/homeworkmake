@@ -1,4 +1,5 @@
-import { initSetting, text } from './initSetting.js';
+import initSetting from './initSetting.js';
+import text from './text.js';
 window.addEventListener('load', async () => {
     const { data, map }= await text(document.querySelector('.markdown-body').innerHTML, {dataType: false, ansType: false});
     document.querySelector('.markdown-body').innerHTML = data;

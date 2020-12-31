@@ -1,9 +1,9 @@
-import digestMessage from './hash.js';
 import hljs from './highlight/highlight.module.js';
 import promisify from './promisify.js';
 import getDB from './DB.js';
 const initSetting = async (code, store, map, version = 1) => {
     const DB = await getDB('myDB', store, version);
+    const result = {};
     DB처음체크 : {
         if(!DB){
             alert('프로그램을 종료합니다.');
@@ -23,11 +23,12 @@ const initSetting = async (code, store, map, version = 1) => {
             workArr.push(promisify(req));
         }
         (await Promise.all(workArr)).forEach((v, i) => {
-            const correct = v.target.result.correct;
-            if(correct == 1){
-                par[i].classList.add('wrong');
-            } else if(correct == 2){
+            const tryArr = v.target.result.tryArr;
+            result[i] = tryArr;
+            if(tryArr.length){
                 par[i].classList.add('correct');
+            } else {
+                par[i].classList.add('wrong');
             }
         });
     }
@@ -37,7 +38,7 @@ const initSetting = async (code, store, map, version = 1) => {
             node.style[m[0]] = m[1];
         });
     };
-    const makeType = v => t => {
+    const makeType = v => (t, val='') => {
         let node = null;
         if(t.indexOf('textarea') !== -1){
             node = document.createElement('textarea');
@@ -60,9 +61,11 @@ const initSetting = async (code, store, map, version = 1) => {
             node.type = arr[0];
             setStyle(node, arr);
         }
+        if(val) node.value = val;
         v.appendChild(node);
         v.appendChild(document.createElement('br'));
     };
+    
     for(let num = 0; num < code.length; num++){
         let par = code[num];
         do{
@@ -74,81 +77,62 @@ const initSetting = async (code, store, map, version = 1) => {
         const type = map[v.dataset.id].type;
         const answer = map[v.dataset.id].ans;
         const but = document.createElement('button');
+        const make = makeType(v);
         if(type){
             if(Array.isArray(type) && type.length === answer.length){
-                type.forEach(makeType(v));
+                type.forEach((t, i) => make(t, result[num][i]));
             } else {
                 if(Array.isArray(type)){
-                    answer.forEach(() => makeType(v)('text'));
+                    answer.forEach((t, i) => make('text', result[num][i]));
                 } else {
                     if(Array.isArray(answer)){
-                        answer.forEach(() => makeType(v)(type));
+                        answer.forEach((t, i) => make(type, result[num][i]));
                     } else {
-                        makeType(v)(type)
+                        make(type, result[num][0]);
                     }
                 }
             }
         } else {
             if(Array.isArray(answer)){
-                answer.forEach(() => makeType(v)('text'));
+                answer.forEach((t, i) => make('text', result[num][i]));
             } else {
-                makeType(v)('text');
+                make('text', result[num][0]);
             }
         }
-        but.innerHTML = '제출하기';
+        but.innerHTML = '답 저장하기';
         v.appendChild(but);
         Array(4).fill(0).forEach(() => v.appendChild(document.createElement('br')));
         par.insertAdjacentElement('afterend', v);
         but.addEventListener('click', async e => {
             const DB = await getDB('myDB', store, version);
-            let objectStore = DB.transaction([store], "readwrite").objectStore(store);
-            const req = objectStore.get(v.dataset.id);
-            let { target:{ result:{ correct, tryArr } } } = await promisify(req);
-            const valNode = v.querySelectorAll('input, textarea, select');
+            const objectStore = DB.transaction([store], "readwrite").objectStore(store);
             const start = document.querySelector(`pre[data-id="${v.dataset.id}"]`);
+            const valNode = v.querySelectorAll('input, textarea, select');
             const oriArr = [];
-            let valArr = [];
-            let what = '';
             for(const i of valNode){
                 const val = i.value.trim();
                 oriArr.push(val);
-                valArr.push(digestMessage(val));
             }
-            valArr = await Promise.all(valArr);
-            if(Array.isArray(answer)){
-                let ans = 0;
-                for(let i = 0; i < valArr.length; i++){
-                    if(valArr[i] === answer[i]) ans++;
-                }
-                if(ans === answer.length){
-                    alert(`${v.dataset.id}번 문제를 맞췄습니다!!!`);
-                    what = 'correct';
-                } else {
-                    alert(`${v.dataset.id}번 문제를 ${ans}문제 맞췄습니다.`);
-                    what = 'wrong';
-                }
-                tryArr.push(oriArr);
-            } else {
-                if(valArr[0] == answer){
-                    alert(`${v.dataset.id}번 문제를 맞췄습니다!!!`);
-                    what = 'correct';
-                } else {
-                    alert('틀렸습니다 ㅠㅠ');
-                    what = 'wrong';
-                }
-                tryArr.push(oriArr[0]);
-            }
-            if(what == 'correct'){
-                correct = 2;
-            } else if(what == 'wrong' && correct < 2){
-                correct = 1;
-            }
-            objectStore = DB.transaction([store], "readwrite").objectStore(store);
-            await promisify(objectStore.put({num:v.dataset.id, correct, tryArr}));
+            result[num] = oriArr;
+            await promisify(objectStore.put({num:v.dataset.id, correct : 0, tryArr:oriArr}));
             DB.close();
-            start.classList.add(what);
+            alert(`${num}번 문제를 풀었습니다.`);
+            start.classList.add('correct');
         });
     }
+    window.addEventListener('keydown', e => {
+        if(e.ctrlKey && e.key === 's'){
+            const blob = new Blob([JSON.stringify(result)]);
+            const a = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            a.href = url;
+            a.download = `${store}정답.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            e.stopPropagation();
+            e.preventDefault();
+        }
+    });
     DB.close();
 };
 export default initSetting;
