@@ -130,7 +130,7 @@ const text = async (txt, option = {dataType : true, ansType : true}) => {
     let data = '';
     if(option.dataType){
         data = marked(txt);
-        const find = data.matchAll(/<[A-Za-z0-9\_\=\"\s-]*?src="(.*?)"[A-Za-z0-9\_\=\"\s-]*?>/g);
+        const find = data.matchAll(/<[A-Za-z0-9\_\=\"\s-]*?src="(.*?)"[A-Za-z0-9\/\_\=\"\s-]*?>/g);
         let arr = [];
         const origin = [];
         for(let i of find){
