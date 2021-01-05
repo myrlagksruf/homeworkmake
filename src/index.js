@@ -2,6 +2,15 @@ const { app, protocol, BrowserWindow } = require('electron');
 const { fstat } = require('fs');
 const fs = require('fs');
 const path = require('path');
+const mime = (_type, path) => {
+  const type = [_type];
+  if(_type === 'img'){
+    type[0] = 'image';
+  }
+  const arr = path.split('.');
+  type.push(arr[arr.length - 1]);
+  return type.join('/');
+};
 const readFile = (path, option={}) => new Promise((res, rej) => {
   fs.readFile(path, option, (err, data) => {
     if(err) rej(err);
@@ -30,7 +39,12 @@ const createWindow = () => {
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
   protocol.registerBufferProtocol('study', async (req, call) => {
     const url = decodeURIComponent(req.url).replace('study://', '');
-    if(url.match('download')){
+    if(req.method === 'POST'){
+      const type = req.uploadData[0].bytes.toString();
+      const path = decodeURIComponent(url);
+      const data = await readFile(path);
+      call({mimeType:mime(type, path), data});
+    } else if(url.match('download')){
       const str = JSON.parse(req.uploadData[0].bytes.toString());
       const opt = {encoding:'utf-8'};
       const arr = [];

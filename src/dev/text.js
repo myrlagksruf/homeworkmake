@@ -1,7 +1,14 @@
 import marked from './marked/lib/marked.esm.js';
 import digestMessage from './hash.js';
 import promisify from './promisify.js';
-const text = async (txt, option = {dataType : true, ansType : true}) => {
+const text = async (txt, _option = {dataType : true, ansType : true, path : ''}) => {
+    const option = {};
+    option.dataType = _option.dataType ?? true;
+    option.ansType = _option.ansType ?? true;
+    option.path = _option.path ?? '';
+    const path = option.path.split('\\');
+    path.pop();
+    console.log(path.join('/'));
     const reg = /\/\*\%([^]+?)\%\*\//g;
     const textReg = /\&((\#\d+?)|(\w+?))\;/g;
     const textObj = {
@@ -105,10 +112,13 @@ const text = async (txt, option = {dataType : true, ansType : true}) => {
         yen: "￥",
         yuml: "y",
     };
-    const readBlob = async txt => {
+    const readBlob = async (txt, type) => {
         try{
             const FL = new FileReader();
-            let res = await fetch(txt);
+            let res = await fetch(`study://${path.join('/')}${txt.replace(/^(\/|\.\/)/, '/')}`, {
+                method:'POST',
+                body:type
+            });
             res = await res.blob();
             FL.readAsDataURL(res);
             let {target: {result:data}} = await promisify(FL, 'load');
@@ -135,7 +145,7 @@ const text = async (txt, option = {dataType : true, ansType : true}) => {
         const origin = [];
         for(let i of find){
             origin.push(i[1]);
-            arr.push(readBlob(i[1]));
+            arr.push(readBlob(i[1], i[0].split(/\s/)[0].slice(1)));
         }
         arr = await Promise.all(arr);
         arr.forEach((v, i) => {

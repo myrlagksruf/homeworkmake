@@ -23,10 +23,10 @@ window.addEventListener('load', e => {
     body.appendChild(button);
     body.appendChild(span);
     const reader = new FileReader();
-    input.addEventListener('change', e => {
-        reader.readAsText(e.target.files[0]);
+    input.addEventListener('change', event => {
+        reader.readAsText(event.target.files[0]);
         reader.addEventListener('load', async e => {
-            const { data, map, raw }= await text(e.target.result);
+            const { data, map, raw }= await text(e.target.result, {path:event.target.files[0].path});
             document.querySelector('.markdown-body').innerHTML = data;
             let version = document.querySelector('h2').innerHTML.match(/\d+/)?.[0];
             if(version){
